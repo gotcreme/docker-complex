@@ -3,24 +3,24 @@ services:
   - docker
 
 before_install:
-  - docker build -t crhain7/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t vovadykun/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run crhain7/react-test npm run test -- --coverage
+  - docker run vovadykun/react-test npm run test -- --coverage
 
 after_success:
   # build docker images
-  - docker build -t crhain7/complex-client ./client
-  - docker build -t crhain7/complex-nginx ./nginx
-  - docker build -t crhain7/complex-server ./server
-  - docker build -t crhain7/complex-worker ./worker
+  - docker build -t vovadykun/complex-client ./client
+  - docker build -t vovadykun/complex-nginx ./nginx
+  - docker build -t vovadykun/complex-server ./server
+  - docker build -t vovadykun/complex-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take these build images and push to docker hub
-  - docker push crhain7/complex-client
-  - docker push crhain7/complex-nginx
-  - docker push crhain7/complex-server
-  - docker push crhain7/complex-worker
+  - docker push vovadykun/complex-client
+  - docker push vovadykun/complex-nginx
+  - docker push vovadykun/complex-server
+  - docker push vovadykun/complex-worker
 
 deploy:
   provider: elasticbeanstalk
